@@ -1,0 +1,12 @@
+version: '3'
+services:
+    main-container:
+        volumes:
+            - "${PERMANENT_STORAGE}:/home/permanent_storage/"
+        environment:
+            - 'PMT_STG_PATH=/home/permanent_storage/'
+        build:
+            context: .
+            dockerfile: ${dockerfile_src}
+            target: ${dockerfile_target}
+        image: "${registry}/${repositoryName}:${dockerfile_target}_${versionNumber}"
