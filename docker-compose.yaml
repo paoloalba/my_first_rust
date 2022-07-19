@@ -5,8 +5,11 @@ services:
             - "${PERMANENT_STORAGE}:/home/permanent_storage/"
         environment:
             - 'PMT_STG_PATH=/home/permanent_storage/'
+            - "PYTHONUNBUFFERED=1"
         build:
             context: .
             dockerfile: ${dockerfile_src}
             target: ${dockerfile_target}
         image: "${registry}/${repositoryName}:${dockerfile_target}_${versionNumber}"
+        stdin_open: true # docker run -i
+        tty: true        # docker run -t

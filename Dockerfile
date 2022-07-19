@@ -11,15 +11,14 @@ WORKDIR /rust_inst
 COPY ./docker_helpers /rust_inst
 RUN chmod a+x ./build_rust.sh
 
-FROM base as debug
-
-CMD ["./build_rust.sh"]
-
-FROM base as prod
-
 RUN ./build_rust.sh
 
 COPY ./app /app
 WORKDIR /app
+
+FROM base as debug
+
+
+FROM base as prod
 
 CMD ["python", "main.py"]
