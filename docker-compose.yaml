@@ -6,6 +6,7 @@ services:
         environment:
             - 'PMT_STG_PATH=/home/permanent_storage/'
             - "PYTHONUNBUFFERED=1"
+            - RUST_BACKTRACE=1
         build:
             context: .
             dockerfile: ${dockerfile_src}

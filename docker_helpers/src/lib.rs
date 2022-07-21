@@ -38,12 +38,53 @@ fn guess_the_number() {
     }
 }
 
+#[pyfunction]
+fn test_loop() {
+    let mut count = 0;
+    'counting_up: loop {
+        println!("count = {count}");
+        let mut remaining = 10;
+
+        loop {
+            println!("remaining = {remaining}");
+            if remaining == 9 {
+                break;
+            }
+            if count == 2 {
+                break 'counting_up;
+            }
+            remaining -= 1;
+        }
+
+        count += 1;
+    }
+    println!("End count = {count}");
+}
+
+use std::thread;
+use std::time::Duration;
+
+#[pyfunction]
+fn main() {
+    let v = vec![1, 2, 3];
+
+    let handle = thread::spawn(move || {
+        println!("Here's a vector: {:?}", v);
+    });
+
+    handle.join().unwrap();
+}
+
+
+
 /// A Python module implemented in Rust. The name of this function must match
 /// the `lib.name` setting in the `Cargo.toml`, else Python will not be able to
 /// import the module.
 #[pymodule]
 fn rust_app(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(guess_the_number, m)?)?;
+    m.add_function(wrap_pyfunction!(test_loop, m)?)?;
+    m.add_function(wrap_pyfunction!(main, m)?)?;
 
     Ok(())
 }

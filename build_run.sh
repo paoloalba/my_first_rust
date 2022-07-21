@@ -12,7 +12,7 @@ export PERMANENT_STORAGE=./permanent_storage
 
 docker-compose --project-name ${dockerfile_target} build
 
-docker run -it --rm --name my-running-app ${registry}/${repositoryName}:${dockerfile_target}_${versionNumber}
+# docker run -it --rm --name my-running-app ${registry}/${repositoryName}:${dockerfile_target}_${versionNumber}
 
-# docker-compose --project-name ${dockerfile_target} up
-# docker-compose --project-name ${dockerfile_target} down
+docker-compose --project-name ${dockerfile_target} up
+docker-compose --project-name ${dockerfile_target} down

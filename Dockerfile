@@ -6,6 +6,8 @@ RUN apt install curl -y
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
+RUN pip install maturin
+
 WORKDIR /rust_inst
 
 COPY ./docker_helpers /rust_inst
