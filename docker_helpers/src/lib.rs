@@ -8,8 +8,6 @@ pub fn eat_at_restaurant() {
     hosting::add_to_waitlist();
 }
 
-
-fn main() {
 use pyo3::prelude::*;
 use rand::Rng;
 use std::cmp::Ordering;
@@ -131,6 +129,4 @@ fn rust_app(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_class::<UsState>()?;
 
     Ok(())
-}
-
 }
