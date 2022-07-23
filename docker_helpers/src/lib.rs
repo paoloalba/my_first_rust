@@ -64,17 +64,50 @@ fn test_loop() {
 use std::thread;
 use std::time::Duration;
 
-#[pyfunction]
-fn main() {
-    let v = vec![1, 2, 3];
-
-    let handle = thread::spawn(move || {
-        println!("Here's a vector: {:?}", v);
-    });
-
-    handle.join().unwrap();
+#[derive(Debug)]
+#[pyclass]
+enum UsState {
+    Alabama,
+    Alaska,
+    // --snip--
 }
 
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter(UsState),
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => 1,
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter(state) => {
+            println!("State quarter from {:?}!", state);
+            25
+        }
+    }
+}
+
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        Some(i) => Some(i + 1),
+        _ => None
+    }
+}
+
+#[pyfunction]
+fn main() {
+    value_in_cents(Coin::Quarter(UsState::Alaska));
+    value_in_cents(Coin::Penny);
+
+    let five = Some(5);
+    let six = plus_one(five);
+    let none = plus_one(None);
+
+}
 
 
 /// A Python module implemented in Rust. The name of this function must match
@@ -85,7 +118,9 @@ fn rust_app(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(guess_the_number, m)?)?;
     m.add_function(wrap_pyfunction!(test_loop, m)?)?;
     m.add_function(wrap_pyfunction!(main, m)?)?;
+    m.add_class::<UsState>()?;
 
     Ok(())
 }
+
 }
