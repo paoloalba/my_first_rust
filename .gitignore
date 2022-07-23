@@ -1,3 +1,5 @@
 .DS_Store
 
 permanent_storage/*
+
+docker_helpers/target/*
