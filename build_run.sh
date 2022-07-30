@@ -9,6 +9,7 @@ export dockerfile_target=$1
 export repositoryName=my_first_rust
 
 export PERMANENT_STORAGE=./permanent_storage
+export RUST_APP_PATH=./rust_app
 
 docker-compose --project-name ${dockerfile_target} build
 

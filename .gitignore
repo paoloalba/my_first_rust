@@ -2,4 +2,5 @@
 
 permanent_storage/*
 
-docker_helpers/target/*
+rust_app/target/*
+

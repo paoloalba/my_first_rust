@@ -8,18 +8,21 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 RUN pip install maturin
 
-WORKDIR /rust_inst
+# WORKDIR /rust_inst
 
-COPY ./docker_helpers /rust_inst
-RUN chmod a+x ./build_rust.sh
+# COPY ./docker_helpers /rust_inst
+# RUN chmod a+x ./setup_rust.sh
+# RUN ./setup_rust.sh
 
-RUN ./build_rust.sh
+COPY ./rust_app /rust_app
+WORKDIR /rust_app
+RUN chmod a+x ./build_install_rust.sh
+RUN ./build_install_rust.sh
 
 COPY ./app /app
 WORKDIR /app
 
 FROM base as debug
-
 
 FROM base as prod
 

@@ -3,8 +3,10 @@ services:
     main-container:
         volumes:
             - "${PERMANENT_STORAGE}:/home/permanent_storage/"
+            - "${RUST_APP_PATH}:/home/rust_app/"
         environment:
             - 'PMT_STG_PATH=/home/permanent_storage/'
+            - 'RUST_APP_STG_PATH=/home/rust_app/'
             - "PYTHONUNBUFFERED=1"
             - RUST_BACKTRACE=1
         build:
@@ -12,5 +14,3 @@ services:
             dockerfile: ${dockerfile_src}
             target: ${dockerfile_target}
         image: "${registry}/${repositoryName}:${dockerfile_target}_${versionNumber}"
-        stdin_open: true # docker run -i
-        tty: true        # docker run -t
