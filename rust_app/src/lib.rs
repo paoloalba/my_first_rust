@@ -115,8 +115,72 @@ fn main() {
     let six = plus_one(five);
     let none = plus_one(None);
 
+    let mut v = Vec::new();
+
+    v.push(String::from("bulo"));
+    v.push(String::from("ji"));    
+
+    let v = vec![1, 2, 3, 4, 5];
+
+    let third = v[2];
+    println!("The third element is {}", third);
+
+    match v.get(2) {
+        Some(third) => println!("The third element is {}", third),
+        None => println!("There is no third element."),
+        
+    }
+
+    let mut v = vec![100, 32, 57];
+    for i in &mut v {
+        *i += 50;
+    }
+
+
+    enum SpreadsheetCell {
+        Int(i32),
+        Float(f64),
+        Text(String),
+    }
+
+    let row = vec![
+        SpreadsheetCell::Int(3),
+        SpreadsheetCell::Text(String::from("blue")),
+        SpreadsheetCell::Float(10.12),
+    ];
+
+    use std::collections::HashMap;
+
+    let text = "hello world wonderful world";
+
+    let mut map = HashMap::new();
+
+    for word in text.split_whitespace() {
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
+    }
+
+    println!("{:?}", map);
+
+    let result;
+    let string1 = String::from("long string is long");
+    {
+        let string2 = String::from("xyz");
+        result = longest(string1.as_str(), string2.as_str());
+        println!("The longest string is {}", result);
+    }
+
+            
 }
 
+fn longest<'a, 'b>(x: &'a str, y: &'b str) -> &'a str {
+    // if x.len() > y.len() {
+    //     x
+    // } else {
+    //     y
+    // }
+    x
+}
 
 /// A Python module implemented in Rust. The name of this function must match
 /// the `lib.name` setting in the `Cargo.toml`, else Python will not be able to
