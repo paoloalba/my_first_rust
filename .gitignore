@@ -4,3 +4,22 @@ permanent_storage/*
 
 rust_app/target/*
 
+# hidden folders
+.cache
+.config
+.ipynb_checkpoints
+.ipython
+.keras
+.local
+.npm
+.rustup
+.cargo
+.profile
+
+__pycache__/
+
+*/.jupyter/*
+!*/.jupyter/jupyter_notebook_config.py
+!*/.jupyter/jupyter_server_config.py
+
+.bash_history

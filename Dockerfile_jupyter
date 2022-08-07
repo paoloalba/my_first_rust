@@ -1,0 +1,29 @@
+FROM jupyter/scipy-notebook:python-3.10.5 as base
+
+RUN pip install plotly
+RUN pip install nb_black
+RUN pip install pandarallel
+RUN pip install ipywidgets==8.0.0rc1
+RUN pip install tabulate
+
+USER root
+RUN apt update && apt upgrade
+RUN apt install build-essential -y
+RUN apt install curl -y
+USER jovyan
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+RUN pip install maturin
+
+USER root
+COPY ./docker_helpers /rust_inst
+RUN chmod a+x /rust_inst/setup_rust.sh
+USER jovyan
+RUN /rust_inst/setup_rust.sh
+
+COPY ./docker_helpers/jupyter_server_config.py /home/jovyan/jupyter_server_config.py
+
+FROM base as prod
+
+CMD ["jupyter", "lab", "--ip", "0.0.0.0"]

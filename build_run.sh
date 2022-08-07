@@ -3,12 +3,13 @@
 export registry=myregistry.io
 export versionNumber=beta
 
-export dockerfile_src="Dockerfile"
-export dockerfile_target=$1
+export dockerfile_src=$1
+export dockerfile_target=$2
 
 export repositoryName=my_first_rust
 
 export PERMANENT_STORAGE=./permanent_storage
+export APP_PATH=./app
 export RUST_APP_PATH=./rust_app
 
 docker-compose --project-name ${dockerfile_target} build

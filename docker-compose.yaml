@@ -1,12 +1,16 @@
 version: '3'
 services:
     main-container:
+        ports:
+            - "${HOST_PORT}:${CONTAINER_PORT}"
+            - "${DEBUG_HOST_PORT}:8889"
         volumes:
-            - "${PERMANENT_STORAGE}:/home/permanent_storage/"
-            - "${RUST_APP_PATH}:/home/rust_app/"
+            - "${PERMANENT_STORAGE}:/home/jovyan/permanent_storage/"
+            - "${APP_PATH}:/home/jovyan/app/"
+            - "${RUST_APP_PATH}:/home/jovyan/rust_app/"
         environment:
             - 'PMT_STG_PATH=/home/permanent_storage/'
-            - 'RUST_APP_STG_PATH=/home/rust_app/'
+            - 'RUST_APP_STG_PATH=/home/jovyan/rust_app/'
             - "PYTHONUNBUFFERED=1"
             - RUST_BACKTRACE=1
         build:
